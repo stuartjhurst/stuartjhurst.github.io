@@ -5,14 +5,14 @@ permalink: /conferences/
 author_profile: true
 ---
 
+{% include base_path %}
+<hr />
+
 {% if site.talkmap_link == true %}
 
 <p style="text-decoration:underline;"><a href="/talkmap.html">See a map of all the places I've given a talk!</a></p>
 
 {% endif %}
-
-{% include base_path %}
-<hr />
 
 {% assign conferences = site.talks | where: "type", "Conference" | reversed %}
 {% if conferences.size > 0 %}
