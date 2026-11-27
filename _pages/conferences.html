@@ -13,7 +13,7 @@ author_profile: true
 
 {% assign conferences = site.talks | where: "type", "Conference" | reversed %}
 {% if conferences.size > 0 %}
-  <h2>Conferences</h2><hr />
+  <hr /><h2>Conferences</h2>
   {% for post in conferences %}
     {% include archive-single-talk.html %}
   {% endfor %}
@@ -21,7 +21,7 @@ author_profile: true
 
 {% assign seminars = site.talks | where: "type", "Seminar" | reversed %}
 {% if seminars.size > 0 %}
-  <h2>Seminars</h2><hr />
+  <hr /><h2>Seminars</h2>
   {% for post in seminars %}
     {% include archive-single-talk.html %}
   {% endfor %}
@@ -29,7 +29,7 @@ author_profile: true
 
 {% assign workshops = site.talks | where: "type", "Workshop" | reversed %}
 {% if workshops.size > 0 %}
-  <h2>Workshops</h2><hr />
+  <hr /><h2>Workshops</h2>
   {% for post in workshops %}
     {% include archive-single-talk.html %}
   {% endfor %}
