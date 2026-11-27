@@ -9,6 +9,7 @@ location: "Newcastle, England"
 conference: "Socio-Legal Studies Association Conference 2027"
 conference_dates: "23–25 March 2027"
 stream: "Labour Law and Society"
+published: false
 ---
 
 This is a description of your conference proceedings talk, note the different field in type. You can put anything in this field.
