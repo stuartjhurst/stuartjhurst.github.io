@@ -7,6 +7,14 @@ author_profile: true
 
 {% include base_path %}
 
-{% for post in site.teaching reversed %}
+<h2>Undergraduate</h2>
+{% assign undergrad = site.teaching | where: "type", "Undergraduate" | reversed %}
+{% for post in undergrad %}
+  {% include archive-single.html %}
+{% endfor %}
+
+<h2>Postgraduate Taught</h2>
+{% assign postgrad = site.teaching | where: "type", "Postgraduate Taught" | reversed %}
+{% for post in postgrad %}
   {% include archive-single.html %}
 {% endfor %}
