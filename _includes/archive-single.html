@@ -49,7 +49,7 @@
     {% comment %}<!-- DOI (publications only, shown only if the doi field exists) -->{% endcomment %}
     {% if post.collection == 'publications' and post.doi %}
       {% assign doi_clean = post.doi | remove: "https://doi.org/" %}
-      <p class="page__meta"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> <a href="https://doi.org/{{ doi_clean }}">{{ doi_clean }}</a></p>
+      <p class="page__meta"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> <a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer">{{ doi_clean }}</a></p>
     {% endif %}
 
     {% if post.excerpt and site.read_more != 'enabled' %}
