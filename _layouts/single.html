@@ -59,7 +59,7 @@ layout: default
             {% assign doi_clean = page.doi | remove: "https://doi.org/" | remove: "http://doi.org/" %}
           {% endif %}
           {% if page.citation or doi_clean %}
-            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.75em; margin-top: 0.25em;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.75em; margin-top: 0.25em; margin-bottom: 1.5em;">
               <div style="flex: 1 1 60%; min-width: 14em;">
                 {% if page.citation %}{{ page.citation | markdownify | remove: "<p>" | remove: "</p>" }}{% endif %}
               </div>
