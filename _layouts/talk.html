@@ -33,14 +33,20 @@ layout: default
         {% if page.conference_dates %}
           <div class="page__date">
             <i class="fa fa-calendar" aria-hidden="true"></i>
-            <span>Conference dates</span>
+            <span>Conference date(s)</span>
             <time>{{ page.conference_dates }}</time>
           </div>
         {% elsif page.seminar_dates %}
           <div class="page__date">
             <i class="fa fa-calendar" aria-hidden="true"></i>
-            <span>Seminar dates</span>
+            <span>Seminar date(s)</span>
             <time>{{ page.seminar_dates }}</time>
+          </div>
+        {% elsif page.workshop_dates %}
+          <div class="page__date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span>Workshop date(s)</span>
+            <time>{{ page.workshop_dates}}</time>
           </div>
         {% elsif page.modified %}
           <div class="page__date">
@@ -62,6 +68,8 @@ layout: default
           <p><strong>Conference:</strong> {{ page.conference }}</p>
         {% elsif page.seminar %}
           <p><strong>Seminar:</strong> {{ page.seminar }}</p>
+        {% elsif workshop %}
+          <p><strong>Workshop:</strong> {{ page.workshop }}</p>
         {% endif %}
 
 
