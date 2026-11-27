@@ -3,7 +3,7 @@ title: "Participant: The Forms of Collective Action"
 collection: talks
 type: "Seminar"
 permalink: /talks/2025ECOLLSalina
-venue: "University dì Catania"
+venue: "Università degli Studi di Catania"
 date: 2025-10-05
 location: "Isola Salina, Italy"
 seminar: "3rd ECOLL Seminar in Comparative Labour Law: _The Right to Strike_"
