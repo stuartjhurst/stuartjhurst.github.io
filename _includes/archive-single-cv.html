@@ -36,12 +36,62 @@
     {% if post.read_time %}
       <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
     {% endif %}
-    {% if post.venue%}<p class="archive__item-excerpt" itemprop="description">{{ post.citation }}</p> {% endif %}
 
-    {% comment %}<!-- DOI (shown only if the doi field exists) -->{% endcomment %}
-    {% if post.doi %}
-      {% assign doi_clean = post.doi | remove: "https://doi.org/" %}
-      <p class="archive__item-excerpt"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> <a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer">{{ doi_clean }}</a></p>
+    {% if post.collection == 'publications' %}
+      {% assign doi_clean = nil %}
+      {% if post.doi %}
+        {% assign doi_clean = post.doi | remove: "https://doi.org/" | remove: "http://doi.org/" %}
+      {% endif %}
+
+      {% assign citation_clean = post.citation %}
+      {% if citation_clean and post.title %}
+        {% assign title_plain = post.title | markdownify | strip_html | strip_newlines | strip %}
+        {% assign title_raw = post.title | strip %}
+
+        {% capture q_double_start %}"{{ title_plain }}{% endcapture %}
+        {% capture q_double_end %}{{ title_plain }}"{% endcapture %}
+        {% capture q_single_start %}'{{ title_plain }}'{% endcapture %}
+        {% capture q_curly_start %}“{{ title_plain }}{% endcapture %}
+        {% capture q_curly_end %}{{ title_plain }}”{% endcapture %}
+
+        {% assign citation_clean = citation_clean
+          | remove: q_double_start
+          | remove: q_double_end
+          | remove: q_single_start
+          | remove: q_curly_start
+          | remove: q_curly_end
+          | remove: title_plain
+          | remove: title_raw
+        %}
+        {% assign citation_clean = citation_clean
+          | replace: '""', ''
+          | replace: "''", ''
+          | replace: '“”', ''
+          | replace: '  ', ' '
+          | strip
+        %}
+      {% endif %}
+
+      {% if citation_clean != blank or doi_clean %}
+        <div class="archive__item-excerpt" itemprop="description" style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.75em; margin-top: 0; margin-bottom: 0.15em;">
+          <div style="flex: 1 1 60%; min-width: 14em;">
+            {% if citation_clean != blank %}{{ citation_clean | markdownify | remove: "<p>" | remove: "</p>" }}{% endif %}
+          </div>
+          {% if doi_clean %}
+            <div style="margin-left: auto; text-align: right; white-space: nowrap;">
+              <a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> {{ doi_clean }}</a>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% else %}
+      {% if post.venue %}<p class="archive__item-excerpt" itemprop="description">{{ post.citation }}</p>{% endif %}
+
+      {% comment %}<!-- DOI (shown only if the doi field exists) -->{% endcomment %}
+      {% if post.doi %}
+        {% assign doi_clean = post.doi | remove: "https://doi.org/" %}
+        <p class="archive__item-excerpt"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> <a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer">{{ doi_clean }}</a></p>
+      {% endif %}
     {% endif %}
     </li>
  </article>
