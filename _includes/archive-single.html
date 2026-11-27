@@ -46,16 +46,25 @@
           {% assign teaching_items = teaching_parts | split: ":::" | where_exp: "item", "item != ''" %}
           <p>{{ teaching_items | join: " | " }}</p>
         {% elsif post.collection == 'publications' %}
-          <p>Published in <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
+          {% assign doi_clean = nil %}
+          {% if post.doi %}
+            {% assign doi_clean = post.doi | remove: "https://doi.org/" | remove: "http://doi.org/" %}
+          {% endif %}
+          {% if post.citation or doi_clean %}
+            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.75em; margin-bottom: 0.35em;">
+              <div style="flex: 1 1 60%; min-width: 14em;">
+                {% if post.citation %}{{ post.citation | markdownify }}{% endif %}
+              </div>
+              {% if doi_clean %}
+                <div style="margin-left: auto; text-align: right; white-space: nowrap;">
+                  <a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> {{ doi_clean }}</a>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
         {% elsif post.date %}
          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ post.date | default: "1900-01-01" | date_to_xmlschema }}">{{ post.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
         {% endif %}
-
-    {% comment %}<!-- DOI (publications only, shown only if the doi field exists) -->{% endcomment %}
-    {% if post.collection == 'publications' and post.doi %}
-      {% assign doi_clean = post.doi | remove: "https://doi.org/" %}
-      <p class="page__meta"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> <a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer">{{ doi_clean }}</a></p>
-    {% endif %}
 
     {% if post.excerpt and site.read_more != 'enabled' %}
     <div class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</div>
@@ -63,12 +72,30 @@
     <div class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}<p><strong><a href="{{ base_path }}{{ post.url }}" rel="permalink">Read more</a></strong></p></div>
     {% endif %}
     
-    {% include /components/citations.html
-        citation=post.citation
-        paperurl=post.paperurl
-        slidesurl=post.slidesurl
-        bibtexurl=post.bibtexurl
-    %}    
+    {% if post.collection == 'publications' %}
+      {% if post.paperurl or post.slidesurl or post.bibtexurl %}
+        <p class="page__meta" style="margin-top: 0.35em;">
+          {% if post.paperurl %}
+            <a href="{{ post.paperurl }}" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-pdf" aria-hidden="true"></i> Download Paper</a>
+          {% endif %}
+          {% if post.paperurl and post.slidesurl %} &nbsp;|&nbsp; {% endif %}
+          {% if post.slidesurl %}
+            <a href="{{ post.slidesurl }}" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-powerpoint" aria-hidden="true"></i> Download Slides</a>
+          {% endif %}
+          {% if post.slidesurl and post.bibtexurl %} &nbsp;|&nbsp; {% endif %}
+          {% if post.bibtexurl %}
+            <a href="{{ post.bibtexurl }}" target="_blank" rel="noopener noreferrer"><i class="fa fa-file-code" aria-hidden="true"></i> Download BibTeX</a>
+          {% endif %}
+        </p>
+      {% endif %}
+    {% else %}
+      {% include /components/citations.html
+          citation=post.citation
+          paperurl=post.paperurl
+          slidesurl=post.slidesurl
+          bibtexurl=post.bibtexurl
+      %}
+    {% endif %}
 
   </article>
 </div>
