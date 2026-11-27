@@ -5,9 +5,9 @@ var addressPoints = [
     24.9435408
   ],
   [
-    "Presenter: '<...>'<br />Universit\u00e0 degli Studi di Cagliari; Sardinia, Italy",
-    40.0912813,
-    9.0305773
+    "Presenter: 'Treating the Symptom, Not the Cause: Psychosocial Risk and Reasonable Adjustment in UK Employment Law'<br />Universit\u00e0 degli Studi di Cagliari; Cagliari, Italy",
+    39.2171994,
+    9.113311
   ],
   [
     "Presenter: 'Psychosocial Risk and Disability at Work'<br />Centre for Law at Work, University of Bristol; Bristol, England",
