@@ -60,3 +60,18 @@
 .archive__item-excerpt {
   font-size: 0.85em;
 }
+
+/* Tighten spacing between CV headings (e.g., Publications, Education) and content below */
+.page__content h2,
+.page__content h3,
+.archive h2,
+.archive h3 {
+  margin-bottom: 0.35em;
+}
+
+.page__content h2 + *,
+.page__content h3 + *,
+.archive h2 + *,
+.archive h3 + * {
+  margin-top: 0.2em;
+}
