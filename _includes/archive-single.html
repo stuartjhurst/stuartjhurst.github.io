@@ -50,10 +50,10 @@
       {% if post.doi %}
         {% assign doi_clean = post.doi | remove: "https://doi.org/" | remove: "http://doi.org/" %}
       {% endif %}
-      {% if post.citation or doi_clean %}
+      {% if post.citationnotitle or doi_clean %}
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.75em; margin-top: 0; margin-bottom: 0.15em;">
           <div style="flex: 1 1 60%; min-width: 14em;">
-            {% if post.citation %}{{ post.citation | markdownify | remove: "<p>" | remove: "</p>" }}{% endif %}
+            {% if post.citationnotitle %}{{ post.citationnotitle | markdownify | remove: "<p>" | remove: "</p>" }}{% endif %}
           </div>
           {% if doi_clean %}
             <div style="margin-left: auto; text-align: right; white-space: nowrap;">
