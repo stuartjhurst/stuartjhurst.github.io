@@ -14,6 +14,7 @@
 
 {% comment %}<!-- Work out which custom fields to use, based on the talk type -->{% endcomment %}
 {% assign is_event = false %}
+{% assign event_stream = nil %}
 {% if post.type == "Workshop" %}
   {% assign is_event = true %}
   {% assign event_name = post.workshop %}
@@ -26,6 +27,7 @@
   {% assign is_event = true %}
   {% assign event_name = post.conference %}
   {% assign event_dates = post.conference_dates %}
+  {% assign event_stream = post.stream %}
 {% endif %}
 
 <div class="{{ include.type | default: "list" }}__item">
@@ -55,14 +57,13 @@
     {% if is_event %}
       {% comment %}
         Three-column grid: icon | label | value.
-        The label column sizes itself to the longest label, so all values line up.
-        The empty fa-fw icon is a spacer for rows that have no icon.
+        The stream (if any) goes in brackets after the title.
       {% endcomment %}
       <div class="page__date" style="display: grid; grid-template-columns: auto auto 1fr; column-gap: 0.5em; row-gap: 0.2em; align-items: baseline;">
         {% if event_name %}
           <i class="fa fa-fw" aria-hidden="true"></i>
           <strong>{{ post.type }} Title:</strong>
-          <span>{{ event_name }}</span>
+          <span>{{ event_name }}{% if event_stream %} ({{ event_stream }}){% endif %}</span>
         {% endif %}
         {% if event_dates %}
           <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
