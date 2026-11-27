@@ -2,7 +2,7 @@
 title: "Co-Rapporteur: 'Workplace Surveillance in the Vicegrad Countries'"
 collection: talks
 type: "Seminar"
-permalink: /talks/01-May-26-seminar-1
+permalink: /talks/YRSWittenberg2025
 venue: "Martin-Luther Universität Halle-Wittenberg"
 date: 2025-05-02
 location: "Wittenberg, Germany"
