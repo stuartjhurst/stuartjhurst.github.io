@@ -5,7 +5,7 @@ var addressPoints = [
     24.9435408
   ],
   [
-    "Presenter: 'Psychosocial Risk and Disability at work'<br />Centre for Law at Work, University of Bristol; Bristol, England",
+    "Presenter: 'Psychosocial Risk and Disability at Work'<br />Centre for Law at Work, University of Bristol; Bristol, England",
     51.4430141,
     -2.5816622
   ],
