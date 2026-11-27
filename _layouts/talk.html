@@ -51,7 +51,7 @@ layout: default
             {% comment %}
               Three-column grid: icon | label | value.
               The label column sizes itself to the longest label, so all values line up.
-              The empty fa-fw icon on the title row is a spacer to line it up with the icon rows.
+              The empty fa-fw icon is a spacer for rows that have no icon.
             {% endcomment %}
             <div class="page__date" style="display: grid; grid-template-columns: auto auto 1fr; column-gap: 0.5em; row-gap: 0.2em; align-items: baseline;">
               {% if event_name %}
@@ -67,14 +67,16 @@ layout: default
               <i class="fa fa-fw fa-map-marker-alt" aria-hidden="true"></i>
               <strong>{{ page.type }} Location:</strong>
               <span>{{ page.venue }}{% if page.venue and page.location %}, {% endif %}{{ page.location }}</span>
-            </div>
 
-            {% if page.date %}
-              <p class="page__date" style="margin-top: 1.5em;">
-                <strong>Date of my presentation:</strong>
+              {% if page.date %}
+                {% comment %}<!-- Empty spacer row: creates the gap above the presentation date. Change the height to adjust. -->{% endcomment %}
+                <div style="grid-column: 1 / -1; height: 1em;"></div>
+
+                <i class="fa fa-fw" aria-hidden="true"></i>
+                <strong>Date Presented:</strong>
                 <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>
-              </p>
-            {% endif %}
+              {% endif %}
+            </div>
           {% else %}
             {% comment %}<!-- Default layout for every other talk type -->{% endcomment %}
             {% if page.modified %}
