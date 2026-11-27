@@ -27,7 +27,7 @@ author:
   name             : "Stuart J Hurst"
   pronouns         : "he/him/his"  
   bio              : "PhD Candidate at the University of Bristol"
-  location         : "Bristol"
+  location         : "Bristol, United Kingdom"
   employer         : "University of Bristol"
   uri              : # URL
   email            : "stuart.hurst@bristol.ac.uk" 
@@ -51,7 +51,7 @@ author:
   bitbucket        : # Username - Update with your username on the site
   codepen          : # Username
   dribbble         : # Username
-  github           : "stuartjhurst"
+  github           : #"stuartjhurst"
   kaggle           : # Username  
   stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
 
@@ -66,7 +66,7 @@ author:
   keybase          : # Username
   instagram        : # Username
   lastfm           : # Username
-  linkedin         : # Username
+  linkedin         : stuart-j-hurst
   mastodon         : # URL
   medium           : # URL
   pinterest        : # Username
