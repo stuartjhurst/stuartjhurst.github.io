@@ -13,7 +13,7 @@ author_profile: true
 
 {% assign books = site.publications | where: "category", "book" | reversed %}
 {% if books.size > 0 %}
-  <h2>Books</h2><hr />
+  <hr /><h2>Books</h2>
   {% for post in books %}
     {% include archive-single.html %}
   {% endfor %}
@@ -21,7 +21,7 @@ author_profile: true
 
 {% assign chapters = site.publications | where: "category", "chapter" | reversed %}
 {% if chapters.size > 0 %}
-  <h2>Contributions to Edited Collections</h2><hr />
+  <hr /><h2>Contributions to Edited Collections</h2>
   {% for post in chapters %}
     {% include archive-single.html %}
   {% endfor %}
@@ -29,7 +29,7 @@ author_profile: true
 
 {% assign articles = site.publications | where: "category", "article" | reversed %}
 {% if articles.size > 0 %}
-  <h2>Journal Articles</h2><hr />
+  <hr /><h2>Journal Articles</h2>
   {% for post in articles %}
     {% include archive-single.html %}
   {% endfor %}
@@ -37,7 +37,7 @@ author_profile: true
 
 {% assign blogs = site.publications | where: "category", "blog" | reversed %}
 {% if blogs.size > 0 %}
-  <h2>Blog Posts</h2><hr />
+  <hr /><h2>Blog Posts</h2>
   {% for post in blogs %}
     {% include archive-single.html %}
   {% endfor %}
@@ -45,7 +45,7 @@ author_profile: true
 
 {% assign uncategorized = site.publications | where_exp: "item", "item.category == nil or item.category == ''" | reversed %}
 {% if uncategorized.size > 0 %}
-  <h2>Other Publications</h2><hr />
+  <hr /><h2>Other Publications</h2>
   {% for post in uncategorized %}
     {% include archive-single.html %}
   {% endfor %}
