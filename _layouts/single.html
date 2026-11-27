@@ -37,16 +37,25 @@ layout: default
         {% if page.collection == 'teaching' %}
           <p> {{ page.type }}, <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
         {% elsif page.venue and page.date %}
-          <p>Published in <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
+          {% comment %}<!-- "Published in" on the left; DOI (publications only) on the right, larger -->{% endcomment %}
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5em;">
+            <p style="margin: 0;">Published in <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
+            {% if page.collection == "publications" and page.doi %}
+              {% assign doi_clean = page.doi | remove: "https://doi.org/" %}
+              <p style="margin: 0; font-size: 1.3em;"><a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> {{ doi_clean }}</a></p>
+            {% endif %}
+          </div>
         {% elsif page.date %}
           <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
         {% endif %}
 
-        {% comment %}<!-- DOI (publications only, shown only if the doi field exists) -->{% endcomment %}
-        {% if page.collection == "publications" and page.doi %}
-          {% assign doi_clean = page.doi | remove: "https://doi.org/" %}
-          <p class="page__meta"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> <a href="https://doi.org/{{ doi_clean }}">{{ doi_clean }}</a></p>
-        {% endif %}
+        {% comment %}<!-- Fallback: publication with a DOI but no venue/date line to sit beside. Right-aligned. -->{% endcomment %}
+        {% unless page.venue and page.date %}
+          {% if page.collection == "publications" and page.doi %}
+            {% assign doi_clean = page.doi | remove: "https://doi.org/" %}
+            <p style="text-align: right; font-size: 1.3em;"><a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> {{ doi_clean }}</a></p>
+          {% endif %}
+        {% endunless %}
         </header>
       {% endunless %}
 
