@@ -220,6 +220,9 @@ kramdown:
   enable_coderay: false
 
 
+
+collections_dir: 00-content
+
 # These settings control the types of collections used by the template
 collections:
   teaching:
