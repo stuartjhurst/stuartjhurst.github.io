@@ -9,7 +9,7 @@ author_profile: true
 
 {% assign undergrad = site.teaching | where: "type", "Undergraduate" | reversed %}
 {% if undergrad.size > 0 %}
-  <h2>Undergraduate</h2><hr />
+  <hr /><h2>Undergraduate</h2>
   {% for post in undergrad %}
     {% include archive-single.html %}
   {% endfor %}
@@ -17,7 +17,7 @@ author_profile: true
 
 {% assign postgrad = site.teaching | where: "type", "Postgraduate Taught" | reversed %}
 {% if postgrad.size > 0 %}
-  <h2>Postgraduate Taught</h2><hr />
+  <hr /><h2>Postgraduate Taught</h2>
   {% for post in postgrad %}
     {% include archive-single.html %}
   {% endfor %}
