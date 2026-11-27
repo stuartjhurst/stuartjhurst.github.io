@@ -76,7 +76,7 @@
       {% if post.paperurl or post.slidesurl or post.bibtexurl %}
         <p class="page__meta" style="margin-top: 0.35em;">
           {% if post.paperurl %}
-            <a href="{{ post.paperurl }}" target="_blank" rel="noopener noreferrer" style="font-size: 1.08em; font-weight: 600; color: #2b7bba; text-decoration: underline;"><i class="fa fa-file-pdf" aria-hidden="true"></i> Download Paper</a>
+            <a href="{{ post.paperurl }}" target="_blank" rel="noopener noreferrer" style="font-size: 1.08em; font-weight: 600; text-decoration: underline;"><i class="fa fa-file-pdf" aria-hidden="true"></i> Download Paper</a>
           {% endif %}
           {% if post.paperurl and post.slidesurl %} &nbsp;|&nbsp; {% endif %}
           {% if post.slidesurl %}
