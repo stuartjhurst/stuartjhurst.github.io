@@ -1,4 +1,3 @@
-
 ---
 layout: default
 ---
@@ -19,109 +18,44 @@ layout: default
   {% include sidebar.html %}
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    {% if page.title %}
-      <meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">
-    {% endif %}
-    {% if page.excerpt %}
-      <meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">
-    {% endif %}
-    {% if page.date %}
-      <meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">
-    {% endif %}
-    {% if page.modified %}
-      <meta itemprop="dateModified" content="{{ page.modified | date_to_xmlschema }}">
-    {% endif %}
+    {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
+    {% if page.modified %}<meta itemprop="dateModified" content="{{ page.modified | date_to_xmlschema }}">{% endif %}
 
     <div class="page__inner-wrap">
       {% unless page.header.overlay_color or page.header.overlay_image %}
         <header>
-          {% if page.title %}
-            <h1 class="page__title" itemprop="headline">
-              {{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}
-            </h1>
-          {% endif %}
-
+          {% if page.title %}<h1 class="page__title" itemprop="headline">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>{% endif %}
           {% if page.read_time %}
-            <p class="page__meta">
-              <i class="fa fa-clock" aria-hidden="true"></i>
-              {% include read-time.html %}
-            </p>
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
           {% endif %}
-
-          {% if page.modified %}
-            <p class="page__date">
-              <strong>
-                <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
-                {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}
-              </strong>
-              <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">
-                {{ page.modified | date: "%B %d, %Y" }}
-              </time>
-            </p>
-          {% endif %}
-
-          {% if page.collection == 'teaching' %}
-            <p style="font-size: 0.85em; color: #666; margin-top: -0.3em;">
-              {% if page.role %}
-                <strong>{{ page.role }}</strong> ·
-              {% endif %}
-              {{ page.type }}, <i>{{ page.venue }}</i>,
-              {{ page.date | default: "1900-01-01" | date: "%Y" }}
-            </p>
-
-          {% elsif page.venue and page.date %}
-
-            {% comment %}
-              Published in on the left; DOI on the right.
-            {% endcomment %}
-
-            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5em;">
-              <p style="margin: 0;">
-                Published in <i>{{ page.venue }}</i>,
-                {{ page.date | default: "1900-01-01" | date: "%Y" }}
-              </p>
-
-              {% if page.collection == "publications" and page.doi %}
-                {% assign doi_clean = page.doi | remove: "https://doi.org/" %}
-                <p style="margin: 0; font-size: 1.3em;">
-                  <a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer">
-                    <i class="ai ai-doi ai-fw" aria-hidden="true"></i>
-                    {{ doi_clean }}
-                  </a>
-                </p>
-              {% endif %}
-            </div>
-
-          {% elsif page.date %}
-
-            <p class="page__date">
-              <strong>
-                <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
-                {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}
-              </strong>
-              <time datetime="{{ page.date | date_to_xmlschema }}">
-                {{ page.date | default: "1900-01-01" | date: "%B %d, %Y" }}
-              </time>
-            </p>
-
-          {% endif %}
-
-          {% comment %}
-            Fallback: publication with a DOI but no venue/date line.
-          {% endcomment %}
-
-          {% unless page.venue and page.date %}
+        {% if page.modified %}
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time></p>
+        {% endif %}
+        
+        {% if page.collection == 'teaching' %}
+          <p> {{ page.type }}, <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
+        {% elsif page.venue and page.date %}
+          {% comment %}<!-- "Published in" on the left; DOI (publications only) on the right, larger -->{% endcomment %}
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5em;">
+            <p style="margin: 0;">Published in <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
             {% if page.collection == "publications" and page.doi %}
               {% assign doi_clean = page.doi | remove: "https://doi.org/" %}
-              <p style="text-align: right; font-size: 1.3em;">
-                <a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer">
-                  <i class="ai ai-doi ai-fw" aria-hidden="true"></i>
-                  {{ doi_clean }}
-                </a>
-              </p>
+              <p style="margin: 0; font-size: 1.3em;"><a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> {{ doi_clean }}</a></p>
             {% endif %}
-          {% endunless %}
+          </div>
+        {% elsif page.date %}
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
+        {% endif %}
 
+        {% comment %}<!-- Fallback: publication with a DOI but no venue/date line to sit beside. Right-aligned. -->{% endcomment %}
+        {% unless page.venue and page.date %}
+          {% if page.collection == "publications" and page.doi %}
+            {% assign doi_clean = page.doi | remove: "https://doi.org/" %}
+            <p style="text-align: right; font-size: 1.3em;"><a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> {{ doi_clean }}</a></p>
+          {% endif %}
+        {% endunless %}
         </header>
       {% endunless %}
 
@@ -133,53 +67,34 @@ layout: default
             paperurl=page.paperurl
             slidesurl=page.slidesurl
             bibtexurl=page.bibtexurl
-        %}
+        %}         
 
-        {% if page.link %}
-          <div>
-            <a href="{{ page.link }}" class="btn">
-              {{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}
-            </a>
-          </div>
-        {% endif %}
+        {% if page.link %}<div><a href="{{ page.link }}" class="btn">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
 
       <footer class="page__meta">
         {% if site.data.ui-text[site.locale].meta_label %}
-          <h4 class="page__meta-title">
-            {{ site.data.ui-text[site.locale].meta_label }}
-          </h4>
+          <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
         {% endif %}
-
         {% include page__taxonomy.html %}
       </footer>
 
-      {% if page.share %}
-        {% include social-share.html %}
-      {% endif %}
+      {% if page.share %}{% include social-share.html %}{% endif %}
 
       {% include post_pagination.html %}
-
     </div>
 
     {% if site.comments.provider and page.comments %}
       {% include comments.html %}
     {% endif %}
-
   </article>
 
-  {% comment %}
-    Only show related posts when enabled.
-  {% endcomment %}
-
+  {% comment %}<!-- only show related on a post page when not disabled -->{% endcomment %}
   {% if page.id and page.related and site.related_posts.size > 0 %}
     <div class="page__related">
       {% if site.data.ui-text[site.locale].related_label %}
-        <h4 class="page__related-title">
-          {{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}
-        </h4>
+        <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}</h4>
       {% endif %}
-
       <div class="grid__wrapper">
         {% for post in site.related_posts limit:4 %}
           {% include archive-single.html type="grid" %}
@@ -187,5 +102,4 @@ layout: default
       </div>
     </div>
   {% endif %}
-
 </div>
