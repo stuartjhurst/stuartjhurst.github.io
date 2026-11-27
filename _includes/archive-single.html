@@ -39,10 +39,12 @@
     {% endif %}
 
         {% if post.collection == 'teaching' %}
-          <p>
-            {{ post.role }}{% if post.role and post.term %} | {% endif %}{{ post.term }}
-            {% if post.venue %}<br>{{ post.venue }}{% endif %}
-          </p>
+          {% capture teaching_parts %}{% endcapture %}
+          {% if post.role %}{% capture teaching_parts %}{{ teaching_parts }}{{ post.role }}:::{% endcapture %}{% endif %}
+          {% if post.term %}{% capture teaching_parts %}{{ teaching_parts }}{{ post.term }}:::{% endcapture %}{% endif %}
+          {% if post.venue %}{% capture teaching_parts %}{{ teaching_parts }}{{ post.venue }}:::{% endcapture %}{% endif %}
+          {% assign teaching_items = teaching_parts | split: ":::" | where_exp: "item", "item != ''" %}
+          <p>{{ teaching_items | join: " | " }}</p>
         {% elsif post.collection == 'publications' %}
           <p>Published in <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
         {% elsif post.date %}
