@@ -3,10 +3,11 @@ title: "Co-Rapporteur: 'Workplace Surveillance in the Vicegrad Countries'"
 collection: talks
 type: "Seminar"
 permalink: /talks/01-May-26-seminar-1
-venue: "Martin-Luther Universität Halle-Wittenberg, Wittenberg, Germany"
-date: 2012-03-01
+venue: "Martin-Luther Universität Halle-Wittenberg"
+date: 2025-05-02
 location: "Wittenberg, Germany"
-conference: "15th Seminar for Young Researchers on (European) Labour Law and Social Security"
+seminar: "15th Seminar for Young Researchers on (European) Labour Law and Social Security"
+seminar_dates: 1–3 May 2025 
 ---
 
 This is a description of your talk, which is a markdown file that can be all markdown-ified like any other post. Yay markdown!
