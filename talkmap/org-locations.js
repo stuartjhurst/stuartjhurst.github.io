@@ -1,8 +1,8 @@
 var addressPoints = [
   [
-    "Tutorial 1 on Relevant Topic in Your Field<br />UC-Berkeley Institute for Testing Science; Berkeley, CA, USA",
-    37.8708393,
-    -122.272863
+    "Presenter: 'Psychosocial Dis/Ability and Corporeal Ableism in the Workplace'<br />University of Helsinki; Helsinki, Finland",
+    60.1666204,
+    24.9435408
   ],
   [
     "Talk 2 on Relevant Topic in Your Field<br />London School of Testing; London, UK",
