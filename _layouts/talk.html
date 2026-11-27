@@ -30,13 +30,36 @@ layout: default
           {% if page.read_time %}
             <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
           {% endif %}
-        {% if page.modified %}
-          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time></p>
-        {% elsif page.date %}
-          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time></p>
-        {% endif %}
-        {% if page.talk_type %}<p>{{page.talk_type}} at {{ page.venue }},  {{page.location}} {% endif %}
 
+          {% if page.type == "Workshop" %}
+            {% comment %}<!-- Workshop layout. The empty fa-fw icon is a spacer so the title line aligns with the lines below. -->{% endcomment %}
+            <p class="page__date" style="margin-bottom: 0;">
+              <i class="fa fa-fw" aria-hidden="true"></i>
+              <strong>Workshop Title:</strong> {{ page.workshop }}
+            </p>
+            <p class="page__date" style="margin-bottom: 0;">
+              <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
+              <strong>Workshop Dates:</strong> {{ page.workshop_dates }}
+            </p>
+            <p class="page__date" style="margin-bottom: 0;">
+              <i class="fa fa-fw fa-map-marker-alt" aria-hidden="true"></i>
+              <strong>Workshop Location:</strong> {{ page.venue }}{% if page.venue and page.location %}, {% endif %}{{ page.location }}
+            </p>
+            {% if page.date %}
+              <p class="page__date" style="margin-top: 1.5em;">
+                <strong>Date of my presentation:</strong>
+                <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d-%m-%Y" }}</time>
+              </p>
+            {% endif %}
+          {% else %}
+            {% comment %}<!-- Default layout for every other talk type -->{% endcomment %}
+            {% if page.modified %}
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time></p>
+            {% elsif page.date %}
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time></p>
+            {% endif %}
+            {% if page.type %}<p>{{ page.type }} at {{ page.venue }}, {{ page.location }}</p>{% endif %}
+          {% endif %}
         </header>
       {% endunless %}
 
