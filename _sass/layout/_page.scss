@@ -262,6 +262,35 @@
   text-transform: uppercase;
 }
 
+/*
+   Page dates
+   ========================================================================== */
+
+.page__date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0.6em 0 1.2em;
+  padding: 0;
+  font-size: 0.85em;
+  color: var(--global-text-color-light);
+  font-weight: 400;
+  line-height: 1.5;
+
+  i {
+    color: var(--global-text-color-light);
+    font-size: 0.95em;
+  }
+
+  span {
+    font-weight: 500;
+  }
+
+  time {
+    color: var(--global-text-color);
+    font-weight: 400;
+  }
+}
 
 /*
    Page meta
