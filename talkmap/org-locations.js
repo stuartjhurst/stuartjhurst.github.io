@@ -25,7 +25,7 @@ var addressPoints = [
     12.6430298
   ],
   [
-    "Participant: The Forms of Collective Action<br />University d\u00ec Catania; Isola Salina, Italy",
+    "Participant: The Forms of Collective Action<br />Universit\u00e0 degli Studi di Catania; Isola Salina, Italy",
     38.5590495,
     14.8358646
   ]
