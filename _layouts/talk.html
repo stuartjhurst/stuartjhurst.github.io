@@ -20,8 +20,8 @@ layout: default
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
     {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: "%B %d, %Y" }}">{% endif %}
-    {% if page.modified %}<meta itemprop="dateModified" content="{{ page.modified | date: "%B %d, %Y" }}">{% endif %}
+    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: "%-d %B %Y" }}">{% endif %}
+    {% if page.modified %}<meta itemprop="dateModified" content="{{ page.modified | date: "%-d %B %Y" }}">{% endif %}
 
     <div class="page__inner-wrap">
       {% unless page.header.overlay_color or page.header.overlay_image %}
@@ -31,32 +31,56 @@ layout: default
             <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
           {% endif %}
 
+          {% comment %}<!-- Work out which custom fields to use, based on the talk type -->{% endcomment %}
+          {% assign is_event = false %}
           {% if page.type == "Workshop" %}
-            {% comment %}<!-- Workshop layout. The empty fa-fw icon is a spacer so the title line aligns with the lines below. -->{% endcomment %}
-            <p class="page__date" style="margin-bottom: 0;">
-              <i class="fa fa-fw" aria-hidden="true"></i>
-              <strong>Workshop Title:</strong> {{ page.workshop }}
-            </p>
-            <p class="page__date" style="margin-bottom: 0;">
-              <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
-              <strong>Workshop Dates:</strong> {{ page.workshop_dates }}
-            </p>
-            <p class="page__date" style="margin-bottom: 0;">
+            {% assign is_event = true %}
+            {% assign event_name = page.workshop %}
+            {% assign event_dates = page.workshop_dates %}
+          {% elsif page.type == "Seminar" %}
+            {% assign is_event = true %}
+            {% assign event_name = page.seminar %}
+            {% assign event_dates = page.seminar_dates %}
+          {% elsif page.type == "Conference" %}
+            {% assign is_event = true %}
+            {% assign event_name = page.conference %}
+            {% assign event_dates = page.conference_dates %}
+          {% endif %}
+
+          {% if is_event %}
+            {% comment %}
+              Three-column grid: icon | label | value.
+              The label column sizes itself to the longest label, so all values line up.
+              The empty fa-fw icon on the title row is a spacer to line it up with the icon rows.
+            {% endcomment %}
+            <div class="page__date" style="display: grid; grid-template-columns: auto auto 1fr; column-gap: 0.5em; row-gap: 0.2em; align-items: baseline;">
+              {% if event_name %}
+                <i class="fa fa-fw" aria-hidden="true"></i>
+                <strong>{{ page.type }} Title:</strong>
+                <span>{{ event_name }}</span>
+              {% endif %}
+              {% if event_dates %}
+                <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
+                <strong>{{ page.type }} Dates:</strong>
+                <span>{{ event_dates }}</span>
+              {% endif %}
               <i class="fa fa-fw fa-map-marker-alt" aria-hidden="true"></i>
-              <strong>Workshop Location:</strong> {{ page.venue }}{% if page.venue and page.location %}, {% endif %}{{ page.location }}
-            </p>
+              <strong>{{ page.type }} Location:</strong>
+              <span>{{ page.venue }}{% if page.venue and page.location %}, {% endif %}{{ page.location }}</span>
+            </div>
+
             {% if page.date %}
               <p class="page__date" style="margin-top: 1.5em;">
                 <strong>Date of my presentation:</strong>
-                <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d-%m-%Y" }}</time>
+                <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>
               </p>
             {% endif %}
           {% else %}
             {% comment %}<!-- Default layout for every other talk type -->{% endcomment %}
             {% if page.modified %}
-              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time></p>
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%-d %B %Y" }}</time></p>
             {% elsif page.date %}
-              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time></p>
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time></p>
             {% endif %}
             {% if page.type %}<p>{{ page.type }} at {{ page.venue }}, {{ page.location }}</p>{% endif %}
           {% endif %}
