@@ -40,7 +40,13 @@ layout: default
           <p>Published in <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
         {% elsif page.date %}
           <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
-        {% endif %}    
+        {% endif %}
+
+        {% comment %}<!-- DOI (publications only, shown only if the doi field exists) -->{% endcomment %}
+        {% if page.collection == "publications" and page.doi %}
+          {% assign doi_clean = page.doi | remove: "https://doi.org/" %}
+          <p class="page__meta"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> <a href="https://doi.org/{{ doi_clean }}">{{ doi_clean }}</a></p>
+        {% endif %}
         </header>
       {% endunless %}
 
