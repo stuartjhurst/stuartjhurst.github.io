@@ -12,6 +12,22 @@
   {% assign title = post.title %}
 {% endif %}
 
+{% comment %}<!-- Work out which custom fields to use, based on the talk type -->{% endcomment %}
+{% assign is_event = false %}
+{% if post.type == "Workshop" %}
+  {% assign is_event = true %}
+  {% assign event_name = post.workshop %}
+  {% assign event_dates = post.workshop_dates %}
+{% elsif post.type == "Seminar" %}
+  {% assign is_event = true %}
+  {% assign event_name = post.seminar %}
+  {% assign event_dates = post.seminar_dates %}
+{% elsif post.type == "Conference" %}
+  {% assign is_event = true %}
+  {% assign event_name = post.conference %}
+  {% assign event_dates = post.conference_dates %}
+{% endif %}
+
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     <li>
@@ -33,9 +49,33 @@
         <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
       {% endif %}
     </h3>
-    {% if post.date %}<p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {{ post.date | date: '%B %d, %Y' }}</p>{% endif %}
-    {% if post.venue%}<p class="archive__item-excerpt" itemprop="description">{{post.type}} at {{ post.venue }},  {{post.location}}</p>{% endif %}
+
+    {% if is_event %}
+      {% comment %}
+        Three-column grid: icon | label | value.
+        The label column sizes itself to the longest label, so all values line up.
+        The empty fa-fw icon is a spacer for rows that have no icon.
+      {% endcomment %}
+      <div class="page__date" style="display: grid; grid-template-columns: auto auto 1fr; column-gap: 0.5em; row-gap: 0.2em; align-items: baseline;">
+        {% if event_name %}
+          <i class="fa fa-fw" aria-hidden="true"></i>
+          <strong>{{ post.type }} Title:</strong>
+          <span>{{ event_name }}</span>
+        {% endif %}
+        {% if event_dates %}
+          <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
+          <strong>{{ post.type }} Dates:</strong>
+          <span>{{ event_dates }}</span>
+        {% endif %}
+        <i class="fa fa-fw fa-map-marker-alt" aria-hidden="true"></i>
+        <strong>{{ post.type }} Location:</strong>
+        <span>{{ post.venue }}{% if post.venue and post.location %}, {% endif %}{{ post.location }}</span>
+      </div>
+    {% else %}
+      {% comment %}<!-- Default layout for any other talk type -->{% endcomment %}
+      {% if post.date %}<p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {{ post.date | date: "%-d %B %Y" }}</p>{% endif %}
+      {% if post.venue %}<p class="archive__item-excerpt" itemprop="description">{{ post.type }} at {{ post.venue }}, {{ post.location }}</p>{% endif %}
+    {% endif %}
     </li>
   </article>
 </div>
-
