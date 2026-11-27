@@ -76,15 +76,3 @@
 .archive h3 a {
   margin-top: 0;
 }
-
-/* Changing the Download Paper Link */
-.archive__item .page__meta a.paper-download-link {
-  color: $link-color;
-  text-decoration: underline;
-  font-size: 1.08em;
-  font-weight: 600;
-}
-
-.archive__item .page__meta a.paper-download-link:hover {
-  color: mix(#000, $link-color, 25%);
-}
