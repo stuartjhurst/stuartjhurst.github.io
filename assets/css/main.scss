@@ -40,3 +40,23 @@
 .page__share {
   display: none !important;
 }
+
+/* Custom font sizing and spacing for the Teaching page */
+.page__title {
+  font-size: 1.25em;
+}
+
+.archive__item-title {
+  font-size: 1.05em;
+  margin-bottom: 0.1em; /* Tightens space below the title */
+}
+
+.archive__item-title + p {
+  font-size: 0.85em;
+  margin-top: 0; /* Removes default top margin pushing the subtext down */
+  margin-bottom: 0.4em; /* Adjusts space before the excerpt/description */
+}
+
+.archive__item-excerpt {
+  font-size: 0.85em;
+}
