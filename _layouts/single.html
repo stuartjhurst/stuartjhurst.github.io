@@ -35,34 +35,24 @@ layout: default
         {% endif %}
         
         {% if page.collection == 'teaching' %}
-          <table class="teaching-meta-table">
-            <tbody>
-              {% if page.role %}
-                <tr>
-                  <th>Role</th>
-                  <td>{{ page.role }}</td>
-                </tr>
-              {% endif %}
-              {% if page.type %}
-                <tr>
-                  <th>Unit Type</th>
-                  <td>{{ page.type }}</td>
-                </tr>
-              {% endif %}
-              {% if page.term %}
-                <tr>
-                  <th>Term</th>
-                  <td>{{ page.term }}</td>
-                </tr>
-              {% endif %}
-              {% if page.venue %}
-                <tr>
-                  <th>Venue</th>
-                  <td>{{ page.venue }}</td>
-                </tr>
-              {% endif %}
-            </tbody>
-          </table>
+          <div class="page__date" style="display: grid; grid-template-columns: auto 1fr; column-gap: 0.75em; row-gap: 0.2em; align-items: baseline;">
+            {% if page.role %}
+              <strong>Role:</strong>
+              <span>{{ page.role }}</span>
+            {% endif %}
+            {% if page.type %}
+              <strong>Unit Type:</strong>
+              <span>{{ page.type }}</span>
+            {% endif %}
+            {% if page.term %}
+              <strong>Term:</strong>
+              <span>{{ page.term }}</span>
+            {% endif %}
+            {% if page.venue %}
+              <strong>Venue:</strong>
+              <span>{{ page.venue }}</span>
+            {% endif %}
+          </div>
         {% elsif page.venue and page.date %}
           {% comment %}<!-- "Published in" on the left; DOI (publications only) on the right, larger -->{% endcomment %}
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5em;">
