@@ -13,5 +13,10 @@ var addressPoints = [
     "Co-Rapporteur: 'Workplace Surveillance in the Vicegrad Countries'<br />Martin-Luther Universit\u00e4t Halle-Wittenberg; Wittenberg, Germany",
     51.8664074,
     12.6430298
+  ],
+  [
+    "Participant: The Forms of Collective Action<br />University d\u00ec Catania; Isola Salina, Italy",
+    38.5590495,
+    14.8358646
   ]
 ];
