@@ -31,19 +31,29 @@ layout: default
             <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
           {% endif %}
         {% if page.conference_dates %}
-          <p class="page__date">
-            <strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Conference dates:</strong>
-            {{ page.conference_dates }}
-          </p>
+          <div class="page__date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span>Conference dates</span>
+            <time>{{ page.conference_dates }}</time>
+          </div>
         {% elsif page.seminar_dates %}
-          <p class="page__date">
-            <strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Seminar dates:</strong>
-            {{ page.seminar_dates }}
-          </p>
+          <div class="page__date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span>Seminar dates</span>
+            <time>{{ page.seminar_dates }}</time>
+          </div>
         {% elsif page.modified %}
-          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%d %B %Y" }}</time></p>
-            {% elsif page.date %}
-          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d %B %Y" }}</time></p>
+          <div class="page__date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span>Date</span>
+            <time datetime="{{ page.modified | date_to_xmlschema }}">{{ page.modified | date: "%d %B %Y" }}</time>
+          </div>
+        {% elsif page.date %}
+          <div class="page__date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <span>Date</span>
+            <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d %B %Y" }}</time>
+          </div>
         {% endif %}
         {% if page.talk_type %}
           <p>{{ page.talk_type }} at {{ page.venue }}, {{ page.location }}</p>
