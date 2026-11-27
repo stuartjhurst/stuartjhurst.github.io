@@ -72,15 +72,6 @@
         <i class="fa fa-fw fa-map-marker-alt" aria-hidden="true"></i>
         <strong>{{ post.type }} Location:</strong>
         <span>{{ post.venue }}{% if post.venue and post.location %}, {% endif %}{{ post.location }}</span>
-
-        {% if post.date %}
-          {% comment %}<!-- Empty spacer row: creates the gap above the presentation date. Change the height to adjust. -->{% endcomment %}
-          <div style="grid-column: 1 / -1; height: 1em;"></div>
-
-          <i class="fa fa-fw" aria-hidden="true"></i>
-          <strong>Date Presented:</strong>
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time>
-        {% endif %}
       </div>
     {% else %}
       {% comment %}<!-- Default layout for any other talk type -->{% endcomment %}
