@@ -5,7 +5,7 @@ type: "Seminar"
 permalink: /talks/2025ECOLLSalina
 venue: "University dì Catania"
 date: 2025-10-05
-location: "Salina (Aeolian Islands), Sicily, Italy"
+location: "Isola Salina, Italy"
 seminar: "3rd ECOLL Seminar in Comparative Labour Law: The Right to Strike"
 seminar_dates: 5–8 October 2025 
 ---
