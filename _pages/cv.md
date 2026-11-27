@@ -11,9 +11,10 @@ redirect_from:
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+* PhD in Law, University of Bristol, 2028 (expected)
+* MSc in Human Resources Management and Industrial Relations, University of Manchester, 2024
+* LL.M. in Employment, Work, and Equality Law, University of Bristol, 2022
+* LL.B. (Hons) in Law, Lancaster University, 2020
 
 Work experience
 ======
