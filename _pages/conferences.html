@@ -11,6 +11,20 @@ author_profile: true
 
 {% endif %}
 
-{% for post in site.talks reversed %}
+<h2>Conferences</h2>
+{% assign conferences = site.talks | where: "type", "Conference" %}
+{% for post in conferences reversed %}
+  {% include archive-single-talk.html %}
+{% endfor %}
+
+<h2>Seminars</h2>
+{% assign seminars = site.talks | where: "type", "Seminar" %}
+{% for post in seminars reversed %}
+  {% include archive-single-talk.html %}
+{% endfor %}
+
+<h2>Workshops</h2>
+{% assign workshops = site.talks | where: "type", "Workshop" %}
+{% for post in workshops reversed %}
   {% include archive-single-talk.html %}
 {% endfor %}
