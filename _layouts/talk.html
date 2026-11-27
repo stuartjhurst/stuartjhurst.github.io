@@ -33,6 +33,7 @@ layout: default
 
           {% comment %}<!-- Work out which custom fields to use, based on the talk type -->{% endcomment %}
           {% assign is_event = false %}
+          {% assign event_stream = nil %}
           {% if page.type == "Workshop" %}
             {% assign is_event = true %}
             {% assign event_name = page.workshop %}
@@ -45,6 +46,7 @@ layout: default
             {% assign is_event = true %}
             {% assign event_name = page.conference %}
             {% assign event_dates = page.conference_dates %}
+            {% assign event_stream = page.stream %}
           {% endif %}
 
           {% if is_event %}
@@ -58,6 +60,11 @@ layout: default
                 <i class="fa fa-fw" aria-hidden="true"></i>
                 <strong>{{ page.type }} Title:</strong>
                 <span>{{ event_name }}</span>
+              {% endif %}
+              {% if event_stream %}
+                <i class="fa fa-fw" aria-hidden="true"></i>
+                <strong>{{ page.type }} Stream:</strong>
+                <span>{{ event_stream }}</span>
               {% endif %}
               {% if event_dates %}
                 <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
