@@ -41,7 +41,7 @@
     {% comment %}<!-- DOI (shown only if the doi field exists) -->{% endcomment %}
     {% if post.doi %}
       {% assign doi_clean = post.doi | remove: "https://doi.org/" %}
-      <p class="archive__item-excerpt"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> <a href="https://doi.org/{{ doi_clean }}">{{ doi_clean }}</a></p>
+      <p class="archive__item-excerpt"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> <a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer">{{ doi_clean }}</a></p>
     {% endif %}
     </li>
  </article>
