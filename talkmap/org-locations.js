@@ -1,5 +1,10 @@
 var addressPoints = [
   [
+    "Co-Rapporteur: 'Workplace Surveillance in the Vicegrad Countries'<br />Martin-Luther Universit\u00e4t Halle-Wittenberg, Wittenberg, Germany; Wittenberg, Germany",
+    51.8664074,
+    12.6430298
+  ],
+  [
     "Tutorial 1 on Relevant Topic in Your Field<br />UC-Berkeley Institute for Testing Science; Berkeley, CA, USA",
     37.8708393,
     -122.272863
@@ -13,10 +18,5 @@ var addressPoints = [
     "Conference Proceeding talk 3 on Relevant Topic in Your Field<br />Testing Institute of America 2014 Annual Conference; Los Angeles, CA, USA",
     34.0536923,
     -118.2427676
-  ],
-  [
-    "Talk 1 on Relevant Topic in Your Field<br />UC San Francisco, Department of Testing; San Francisco, CA, USA",
-    37.7879363,
-    -122.4075201
   ]
 ];
