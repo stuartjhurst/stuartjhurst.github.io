@@ -35,7 +35,34 @@ layout: default
         {% endif %}
         
         {% if page.collection == 'teaching' %}
-          <p> {{ page.type }}, <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
+          <table class="teaching-meta-table">
+            <tbody>
+              {% if page.role %}
+                <tr>
+                  <th>Role</th>
+                  <td>{{ page.role }}</td>
+                </tr>
+              {% endif %}
+              {% if page.type %}
+                <tr>
+                  <th>Unit Type</th>
+                  <td>{{ page.type }}</td>
+                </tr>
+              {% endif %}
+              {% if page.term %}
+                <tr>
+                  <th>Term</th>
+                  <td>{{ page.term }}</td>
+                </tr>
+              {% endif %}
+              {% if page.venue %}
+                <tr>
+                  <th>Venue</th>
+                  <td>{{ page.venue }}</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
         {% elsif page.venue and page.date %}
           {% comment %}<!-- "Published in" on the left; DOI (publications only) on the right, larger -->{% endcomment %}
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5em;">
