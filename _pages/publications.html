@@ -11,26 +11,42 @@ author_profile: true
 
 {% include base_path %}
 
-<!-- New style rendering if publication categories are defined -->
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
-    {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
-        {% continue %}
-      {% endif %}
-      {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
-        {% assign title_shown = true %}
-      {% endunless %}
-      {% include archive-single.html %}
-    {% endfor %}
-  {% endfor %}
-{% else %}
-  {% for post in site.publications reversed %}
+{% assign books = site.publications | where: "category", "book" | reversed %}
+{% if books.size > 0 %}
+  <h2>Books</h2><hr />
+  {% for post in books %}
     {% include archive-single.html %}
   {% endfor %}
 {% endif %}
 
+{% assign chapters = site.publications | where: "category", "chapter" | reversed %}
+{% if chapters.size > 0 %}
+  <h2>Contributions to Edited Collections</h2><hr />
+  {% for post in chapters %}
+    {% include archive-single.html %}
+  {% endfor %}
+{% endif %}
 
+{% assign articles = site.publications | where: "category", "article" | reversed %}
+{% if articles.size > 0 %}
+  <h2>Journal Articles</h2><hr />
+  {% for post in articles %}
+    {% include archive-single.html %}
+  {% endfor %}
+{% endif %}
 
+{% assign blogs = site.publications | where: "category", "blog" | reversed %}
+{% if blogs.size > 0 %}
+  <h2>Blog Posts</h2><hr />
+  {% for post in blogs %}
+    {% include archive-single.html %}
+  {% endfor %}
+{% endif %}
+
+{% assign uncategorized = site.publications | where_exp: "item", "item.category == nil or item.category == ''" | reversed %}
+{% if uncategorized.size > 0 %}
+  <h2>Other Publications</h2><hr />
+  {% for post in uncategorized %}
+    {% include archive-single.html %}
+  {% endfor %}
+{% endif %}
