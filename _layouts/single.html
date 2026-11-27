@@ -21,7 +21,7 @@ layout: default
     {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
     {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
     {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
-    {% if page.modified %}<meta itemprop="dateModified" content="{{ page.modified | date_to_xmlschema }}">{% endif %}
+    {% if page.modified %}<meta itemprop="dateModified" content="{{ page.modified | date: "%Y-%m-%d" }}">{% endif %}
 
     <div class="page__inner-wrap">
       {% unless page.header.overlay_color or page.header.overlay_image %}
@@ -58,10 +58,40 @@ layout: default
           {% if page.doi %}
             {% assign doi_clean = page.doi | remove: "https://doi.org/" | remove: "http://doi.org/" %}
           {% endif %}
-          {% if page.citation or doi_clean %}
+
+          {% assign citation_clean = page.citation %}
+          {% if citation_clean and page.title %}
+            {% assign title_plain = page.title | markdownify | strip_html | strip_newlines | strip %}
+            {% assign title_raw = page.title | strip %}
+
+            {% capture q_double_start %}"{{ title_plain }}{% endcapture %}
+            {% capture q_double_end %}{{ title_plain }}"{% endcapture %}
+            {% capture q_single_start %}'{{ title_plain }}'{% endcapture %}
+            {% capture q_curly_start %}“{{ title_plain }}{% endcapture %}
+            {% capture q_curly_end %}{{ title_plain }}”{% endcapture %}
+
+            {% assign citation_clean = citation_clean
+              | remove: q_double_start
+              | remove: q_double_end
+              | remove: q_single_start
+              | remove: q_curly_start
+              | remove: q_curly_end
+              | remove: title_plain
+              | remove: title_raw
+            %}
+            {% assign citation_clean = citation_clean
+              | replace: '""', ''
+              | replace: "''", ''
+              | replace: '“”', ''
+              | replace: '  ', ' '
+              | strip
+            %}
+          {% endif %}
+
+          {% if citation_clean != blank or doi_clean %}
             <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.75em; margin-top: 0.25em; margin-bottom: 1.5em;">
               <div style="flex: 1 1 60%; min-width: 14em;">
-                {% if page.citation %}{{ page.citation | markdownify | remove: "<p>" | remove: "</p>" }}{% endif %}
+                {% if citation_clean != blank %}{{ citation_clean | markdownify | remove: "<p>" | remove: "</p>" }}{% endif %}
               </div>
               {% if doi_clean %}
                 <div style="margin-left: auto; text-align: right; white-space: nowrap;">
