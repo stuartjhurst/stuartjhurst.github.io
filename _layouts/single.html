@@ -53,38 +53,48 @@ layout: default
               <span>{{ page.venue }}</span>
             {% endif %}
           </div>
+        {% elsif page.collection == 'publications' %}
+          {% assign doi_clean = nil %}
+          {% if page.doi %}
+            {% assign doi_clean = page.doi | remove: "https://doi.org/" | remove: "http://doi.org/" %}
+          {% endif %}
+          {% if page.citation or doi_clean %}
+            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.75em; margin-top: 0.25em;">
+              <div style="flex: 1 1 60%; min-width: 14em;">
+                {% if page.citation %}{{ page.citation | markdownify | remove: "<p>" | remove: "</p>" }}{% endif %}
+              </div>
+              {% if doi_clean %}
+                <div style="margin-left: auto; text-align: right; white-space: nowrap;">
+                  <a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> {{ doi_clean }}</a>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
         {% elsif page.venue and page.date %}
-          {% comment %}<!-- "Published in" on the left; DOI (publications only) on the right, larger -->{% endcomment %}
-          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5em;">
-            <p style="margin: 0;">Published in <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
-            {% if page.collection == "publications" and page.doi %}
-              {% assign doi_clean = page.doi | remove: "https://doi.org/" %}
-              <p style="margin: 0; font-size: 1.3em;"><a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> {{ doi_clean }}</a></p>
-            {% endif %}
-          </div>
+          <p style="margin: 0;">Published in <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
         {% elsif page.date %}
           <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
         {% endif %}
-
-        {% comment %}<!-- Fallback: publication with a DOI but no venue/date line to sit beside. Right-aligned. -->{% endcomment %}
-        {% unless page.venue and page.date %}
-          {% if page.collection == "publications" and page.doi %}
-            {% assign doi_clean = page.doi | remove: "https://doi.org/" %}
-            <p style="text-align: right; font-size: 1.3em;"><a href="https://doi.org/{{ doi_clean }}" target="_blank" rel="noopener noreferrer"><i class="ai ai-doi ai-fw" aria-hidden="true"></i> {{ doi_clean }}</a></p>
-          {% endif %}
-        {% endunless %}
         </header>
       {% endunless %}
 
       <section class="page__content" itemprop="text">
         {{ content }}
 
-        {% include /components/citations.html
-            citation=page.citation
-            paperurl=page.paperurl
-            slidesurl=page.slidesurl
-            bibtexurl=page.bibtexurl
-        %}         
+        {% if page.collection == 'publications' %}
+          {% include /components/citations.html
+              paperurl=page.paperurl
+              slidesurl=page.slidesurl
+              bibtexurl=page.bibtexurl
+          %}
+        {% else %}
+          {% include /components/citations.html
+              citation=page.citation
+              paperurl=page.paperurl
+              slidesurl=page.slidesurl
+              bibtexurl=page.bibtexurl
+          %}
+        {% endif %}
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
