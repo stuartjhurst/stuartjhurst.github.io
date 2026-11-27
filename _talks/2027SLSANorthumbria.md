@@ -2,7 +2,7 @@
 title: "Presenter: '<...>'"
 collection: talks
 type: "Conference"
-permalink: /talks/2027SLSANewcastle
+permalink: /talks/2027SLSANorthumbria
 venue: "University of Northumbria"
 date: 2027-03-23
 location: "Newcastle, England"
